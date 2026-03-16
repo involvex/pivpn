@@ -20,13 +20,16 @@ fi
 echo "Installing WireGuard-UI Dashboard for architecture: $ARCH"
 
 # Determine binary suffix
-if [[ "$ARCH" == "armv7"* ]]; then
-  WGUI_ARCH="armv7"
+if [[ "$ARCH" == "armv6l" ]] || [[ "$ARCH" == "armv7"* ]]; then
+  # Both armv6l and armv7 use the 'arm' binary in WireGuard-UI releases
+  WGUI_ARCH="arm"
 elif [[ "$ARCH" == "aarch64" ]]; then
   WGUI_ARCH="arm64"
+elif [[ "$ARCH" == "x86_64" ]]; then
+  WGUI_ARCH="amd64"
 else
-  echo "Unsupported architecture: $ARCH. Attempting armv7 as fallback for Pi 2B."
-  WGUI_ARCH="armv7"
+  echo "Unsupported architecture: $ARCH. Attempting 'arm' as fallback."
+  WGUI_ARCH="arm"
 fi
 
 # Create install directory
